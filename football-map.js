@@ -5,7 +5,7 @@ class FootballClubMap {
         this.markers = [];
         this.radiusCircles = [];
         this.selectedClubCircle = null;
-        this.currentRadius = 50;
+        this.currentRadius = 3;
         this.showRadiusCircles = true;
         this.init();
         this.loadDemoData();
