@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Football Club World Map</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <h2>Football Club Filter</h2>
+            
+            <div class="control-group">
+                <label for="radius">Dominance Radius:</label>
+                <div class="radius-display" id="radiusDisplay">50 km</div>
+                <input type="range" id="radius" class="radius-slider" min="3" max="20000" value="50" step="1">
+                <div class="radius-input-container">
+                    <input type="number" id="radiusInput" min="3" max="20000" value="50" placeholder="Enter radius in km">
+                    <span>km</span>
+                </div>
+                <div class="help-text">3km to world coverage - Only the strongest club per region is displayed</div>
+                
+                <label style="margin-top: 15px;">
+                    <input type="checkbox" id="showCircles" checked> 
+                    Show dominance areas
+                </label>
+            </div>
+            
+            <div class="stats" id="stats">
+                <h3>Statistics</h3>
+                <div>Total clubs: <span id="totalClubs">0</span></div>
+                <div>Visible clubs: <span id="visibleClubs">0</span></div>
+                <div>Current zoom: <span id="zoomLevel">2</span></div>
+            </div>
+            
+            <div class="control-group">
+                <h3>Map Controls</h3>
+                <div class="help-text">
+                    • Zoom: Mouse wheel or +/- buttons<br>
+                    • Pan: Click and drag<br>
+                    • Club info: Click on marker
+                </div>
+            </div>
+        </div>
+        
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="clubs-data.js"></script>
+    <script src="football-map.js"></script>
+</body>
+</html>
