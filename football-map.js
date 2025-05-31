@@ -5,7 +5,7 @@ class FootballClubMap {
         this.markers = [];
         this.radiusCircles = [];
         this.selectedClubCircle = null;
-        this.currentRadius = 3;
+        this.currentRadius = 0;
         this.showRadiusCircles = true;
         this.init();
         this.loadDemoData();
@@ -27,7 +27,7 @@ class FootballClubMap {
         });
         
         document.getElementById('radiusInput').addEventListener('input', (e) => {
-            const value = parseInt(e.target.value) || 3;
+            const value = parseInt(e.target.value) || 0;
             this.updateRadius(value);
         });
         
@@ -58,7 +58,7 @@ class FootballClubMap {
     
     updateRadius(newRadius) {
         // Clamp value to valid range
-        newRadius = Math.max(3, Math.min(20000, newRadius));
+        newRadius = Math.max(0, Math.min(20000, newRadius));
         
         this.currentRadius = newRadius;
         let displayText;
