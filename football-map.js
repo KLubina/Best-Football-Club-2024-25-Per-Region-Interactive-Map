@@ -12,73 +12,73 @@ class FootballClubMap {
         this.init();
         this.loadDemoData();
     }
-    
+
     init() {
         // Initialize Leaflet map
         this.map = L.map('map').setView([20, 0], 2);
-        
+
         // OpenStreetMap Tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© OpenStreetMap contributors',
             maxZoom: 18
         }).addTo(this.map);
-        
+
         // Event Listeners for Radius Slider and Input
         document.getElementById('radius').addEventListener('input', (e) => {
             this.updateRadius(parseInt(e.target.value));
         });
-        
+
         document.getElementById('radiusInput').addEventListener('input', (e) => {
             const value = parseInt(e.target.value) || 0;
             this.updateRadius(value);
         });
-        
+
         // Event Listener for "Show Circles" Checkbox
         document.getElementById('showCircles').addEventListener('change', (e) => {
             this.showRadiusCircles = e.target.checked;
             this.filterAndDisplayClubs();
         });
-        
+
         // When zooming or panning, update the visible clubs
         this.map.on('zoomend', () => {
             this.updateStats();
         });
-        
+
         this.map.on('moveend', () => {
             this.filterAndDisplayClubs();
         });
-        
+
         // Clear selected club circle when clicking on empty map space
         this.map.on('click', () => {
             this.clearSelectedClubCircle();
         });
     }
-    
+
     loadDemoData() {
         // Assume CLUBS_DATA is a global array (from clubs-data.js) with objects like:
         // { id, name, lat, lng, rank, country, ... }
         if (typeof CLUBS_DATA !== 'undefined' && Array.isArray(CLUBS_DATA)) {
             this.clubs = CLUBS_DATA.map(c => ({
-                id:      c.id,
-                name:    c.name,
-                lat:     c.lat,
-                lng:     c.lng,
-                rank:    c.rank,
+                id: c.id,
+                name: c.name,
+                lat: c.lat,
+                lng: c.lng,
+                rank: c.rank,
                 country: c.country || '',
-                hidden:  false
+                hidden: false
             }));
         }
-        
+
         // Initial rendering & stats
         this.filterAndDisplayClubs();
         this.updateStats();
     }
-    
+
     updateRadius(newRadius) {
         // Clamp to [0, 20000] km
         newRadius = Math.max(0, Math.min(20000, newRadius));
         this.currentRadius = newRadius;
-        
+
         // Display text (e.g., "500 km" or "World")
         let displayText;
         if (newRadius >= 20000) {
@@ -86,34 +86,34 @@ class FootballClubMap {
         } else {
             displayText = `${newRadius} km`;
         }
-        
+
         // Update both slider and number input
         document.getElementById('radiusDisplay').textContent = displayText;
         document.getElementById('radius').value = newRadius;
         document.getElementById('radiusInput').value = newRadius;
-        
+
         // If a club is selected (red dashed circle), update its radius circle
         if (this.selectedClubCircle) {
             this.selectedClubCircle.setRadius(this.currentRadius * 1000);
         }
-        
+
         this.filterAndDisplayClubs();
     }
-    
+
     filterAndDisplayClubs() {
         // 1. Determine which clubs are inside the current map bounds
         const bounds = this.map.getBounds();
         const visibleClubs = this.clubs.filter(club =>
             bounds.contains([club.lat, club.lng])
         );
-        
+
         // 2. Apply the new radius‐based filter (parallel check against all stronger clubs)
         const filteredClubs = this.filterClubsByRadius(visibleClubs);
-        
+
         // 3. Clear existing markers & radius circles
         this.clearMarkers();
         this.clearRadiusCircles();
-        
+
         // 4. Add marker + optional circle for each filtered club
         filteredClubs.forEach(club => {
             this.addClubMarker(club);
@@ -121,20 +121,20 @@ class FootballClubMap {
                 this.addRadiusCircle(club);
             }
         });
-        
+
         // 5. Update statistics (total vs. visible, zoom level, etc.)
         this.updateStats();
     }
-    
+
     filterClubsByRadius(clubsSubset) {
         // For each club A in clubsSubset, check if there is any stronger club B
         // (i.e. B.rank < A.rank) within currentRadius. If yes, exclude A.
         // Otherwise keep A.
         const result = [];
-        
+
         clubsSubset.forEach(clubA => {
             let isDominated = false;
-            
+
             for (let clubB of clubsSubset) {
                 if (clubB.rank < clubA.rank) {
                     const dist = this.calculateDistance(
@@ -147,15 +147,15 @@ class FootballClubMap {
                     }
                 }
             }
-            
+
             if (!isDominated) {
                 result.push(clubA);
             }
         });
-        
+
         return result;
     }
-    
+
     calculateDistance(lat1, lng1, lat2, lng2) {
         // Haversine formula (returns distance in kilometers)
         const R = 6371; // Earth radius in km
@@ -168,124 +168,223 @@ class FootballClubMap {
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
         return R * c;
     }
-    
+
+    getClubTier(rank) {
+        if (rank <= 3) {
+            return {
+                name: 'Elite (Top 3)',
+                radius: 12,
+                fillColor: '#FFD700',      // Pure Gold
+                borderColor: '#FFA500',    // Orange border
+                borderWeight: 3,
+                fillOpacity: 0.9
+            };
+        } else if (rank <= 10) {
+            return {
+                name: 'World Class (Top 10)',
+                radius: 10,
+                fillColor: '#FF8C00',      // Dark Orange
+                borderColor: '#FF6347',    // Tomato border
+                borderWeight: 3,
+                fillOpacity: 0.85
+            };
+        } else if (rank <= 25) {
+            return {
+                name: 'Elite National (Top 25)',
+                radius: 8,
+                fillColor: '#FF6B35',      // Red Orange
+                borderColor: '#FF4500',    // Orange Red border
+                borderWeight: 2,
+                fillOpacity: 0.8
+            };
+        } else if (rank <= 50) {
+            return {
+                name: 'Top National (Top 50)',
+                radius: 7,
+                fillColor: '#FF4500',      // Orange Red
+                borderColor: '#DC143C',    // Crimson border
+                borderWeight: 2,
+                fillOpacity: 0.75
+            };
+        } else if (rank <= 100) {
+            return {
+                name: 'Strong National (Top 100)',
+                radius: 6,
+                fillColor: '#DC143C',      // Crimson
+                borderColor: '#B22222',    // Fire Brick border
+                borderWeight: 2,
+                fillOpacity: 0.7
+            };
+        } else if (rank <= 250) {
+            return {
+                name: 'Professional (Top 250)',
+                radius: 5,
+                fillColor: '#B22222',      // Fire Brick
+                borderColor: '#8B0000',    // Dark Red border
+                borderWeight: 1,
+                fillOpacity: 0.65
+            };
+        } else if (rank <= 500) {
+            return {
+                name: 'Regional (Top 500)',
+                radius: 4,
+                fillColor: '#8B0000',      // Dark Red
+                borderColor: '#696969',    // Dim Gray border
+                borderWeight: 1,
+                fillOpacity: 0.6
+            };
+        } else if (rank <= 1000) {
+            return {
+                name: 'Lower League (Top 1000)',
+                radius: 3,
+                fillColor: '#696969',      // Dim Gray
+                borderColor: '#2F4F4F',    // Dark Slate Gray border
+                borderWeight: 1,
+                fillOpacity: 0.55
+            };
+        } else {
+            return {
+                name: 'Amateur/Semi-Pro (1000+)',
+                radius: 2,
+                fillColor: '#2F4F4F',      // Dark Slate Gray
+                borderColor: '#000000',    // Black border
+                borderWeight: 1,
+                fillOpacity: 0.5
+            };
+        }
+    }
+
     addClubMarker(club) {
-        // Top 10 clubs in gold, others in orange
-        const isTopClub = club.rank <= 10;
-        
+        // Determine club tier and styling based on rank
+        const clubTier = this.getClubTier(club.rank);
+
         const marker = L.circleMarker([club.lat, club.lng], {
-            radius:      isTopClub ? 8 : 6,
-            fillColor:   isTopClub ? '#ffd700' : '#ff6b35',
-            color:       'white',
-            weight:      2,
-            opacity:     1,
-            fillOpacity: 0.8
+            radius: clubTier.radius,
+            fillColor: clubTier.fillColor,
+            color: clubTier.borderColor,
+            weight: clubTier.borderWeight,
+            opacity: 1,
+            fillOpacity: clubTier.fillOpacity
         });
-        
+
         const popupContent = `
-            <div style="text-align: center;">
-                <h3 style="margin: 0 0 5px 0;">${club.name}</h3>
-                <p style="margin: 0;"><strong>Rank:</strong> #${club.rank}</p>
-                <p style="margin: 0;"><strong>Country:</strong> ${club.country}</p>
-                <p style="margin: 0;"><strong>Dominance Radius:</strong> ${this.currentRadius} km</p>
-            </div>
-        `;
-        
+        <div style="text-align: center;">
+            <h3 style="margin: 0 0 5px 0;">${club.name}</h3>
+            <p style="margin: 0;"><strong>Rank:</strong> #${club.rank}</p>
+            <p style="margin: 0;"><strong>Country:</strong> ${club.country}</p>
+            <p style="margin: 0;"><strong>Tier:</strong> ${clubTier.name}</p>
+            <p style="margin: 0;"><strong>Dominance Radius:</strong> ${this.currentRadius} km</p>
+        </div>
+    `;
+
         marker.bindPopup(popupContent);
-        
+
         // Clicking a marker shows a dashed circle around that specific club
         marker.on('click', () => {
             this.showSelectedClubCircle(club);
         });
-        
+
         marker.addTo(this.map);
         this.markers.push(marker);
     }
-    
+
     addRadiusCircle(club) {
-        // Color & thickness based on rank tier
-        const isTop3 = club.rank <= 3;
-        const isTop10 = club.rank <= 10;
-        
-        let circleColor = '#ff6b35';     // Default orange
-        let fillOpacity = 0.10;
+        // Get club tier for consistent styling
+        const clubTier = this.getClubTier(club.rank);
+
+        // Circle styling based on tier
+        let circleOpacity = 0.4;
+        let fillOpacity = 0.08;
         let weight = 1;
-        
-        if (isTop3) {
-            circleColor = '#ffd700';     // Gold for top 3
+
+        if (club.rank <= 3) {
             fillOpacity = 0.15;
             weight = 3;
-        } else if (isTop10) {
-            circleColor = '#ff8c42';     // Light orange for top 10
+            circleOpacity = 0.6;
+        } else if (club.rank <= 10) {
             fillOpacity = 0.12;
             weight = 2;
+            circleOpacity = 0.5;
+        } else if (club.rank <= 50) {
+            fillOpacity = 0.10;
+            weight = 2;
+            circleOpacity = 0.4;
+        } else if (club.rank <= 250) {
+            fillOpacity = 0.08;
+            weight = 1;
+            circleOpacity = 0.3;
+        } else {
+            fillOpacity = 0.05;
+            weight = 1;
+            circleOpacity = 0.25;
         }
-        
+
         const circle = L.circle([club.lat, club.lng], {
-            color:      circleColor,
-            fillColor:  circleColor,
+            color: clubTier.fillColor,
+            fillColor: clubTier.fillColor,
             fillOpacity: fillOpacity,
-            radius:     this.currentRadius * 1000, // km → meters
-            weight:     weight,
-            opacity:    0.6
+            radius: this.currentRadius * 1000, // km → meters
+            weight: weight,
+            opacity: circleOpacity
         });
-        
+
         const popupContent = `
-            <div style="text-align: center;">
-                <h3 style="margin: 0 0 5px 0;">${club.name}</h3>
-                <p style="margin: 0;"><strong>Rank:</strong> #${club.rank}</p>
-                <p style="margin: 0;"><strong>Country:</strong> ${club.country}</p>
-                <p style="margin: 0;"><strong>Dominance Radius:</strong> ${this.currentRadius} km</p>
-            </div>
-        `;
-        
+        <div style="text-align: center;">
+            <h3 style="margin: 0 0 5px 0;">${club.name}</h3>
+            <p style="margin: 0;"><strong>Rank:</strong> #${club.rank}</p>
+            <p style="margin: 0;"><strong>Country:</strong> ${club.country}</p>
+            <p style="margin: 0;"><strong>Tier:</strong> ${this.getClubTier(club.rank).name}</p>
+            <p style="margin: 0;"><strong>Dominance Radius:</strong> ${this.currentRadius} km</p>
+        </div>
+    `;
+
         circle.bindPopup(popupContent);
         circle.on('click', () => {
             this.showSelectedClubCircle(club);
         });
-        
+
         circle.addTo(this.map);
         this.radiusCircles.push(circle);
     }
-    
+
     clearMarkers() {
         this.markers.forEach(marker => {
             this.map.removeLayer(marker);
         });
         this.markers = [];
     }
-    
+
     clearRadiusCircles() {
         this.radiusCircles.forEach(circle => {
             this.map.removeLayer(circle);
         });
         this.radiusCircles = [];
     }
-    
+
     updateStats() {
         // Total clubs in data vs. currently visible markers
         document.getElementById('totalClubs').textContent = this.clubs.length;
         document.getElementById('visibleClubs').textContent = this.markers.length;
         document.getElementById('zoomLevel').textContent = this.map.getZoom();
     }
-    
+
     showSelectedClubCircle(club) {
         // Remove any previous dashed circle
         this.clearSelectedClubCircle();
-        
+
         this.selectedClubCircle = L.circle([club.lat, club.lng], {
-            color:      '#e74c3c',
-            fillColor:  '#e74c3c',
+            color: '#e74c3c',
+            fillColor: '#e74c3c',
             fillOpacity: 0.20,
-            radius:     this.currentRadius * 1000,
-            weight:     3,
-            opacity:    0.8,
-            dashArray:  '10, 10'
+            radius: this.currentRadius * 1000,
+            weight: 3,
+            opacity: 0.8,
+            dashArray: '10, 10'
         });
-        
+
         this.selectedClubCircle.addTo(this.map);
     }
-    
+
     clearSelectedClubCircle() {
         if (this.selectedClubCircle) {
             this.map.removeLayer(this.selectedClubCircle);

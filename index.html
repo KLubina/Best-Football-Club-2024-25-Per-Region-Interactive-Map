@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
     <!-- Navigation Toggle Button for Mobile -->
     <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
@@ -18,7 +20,8 @@
                 <div class="radius-display" id="radiusDisplay">0 km</div>
                 <input type="range" id="radius" class="radius-slider" min="0" max="20000" value="0" step="1">
                 <div class="radius-input-container">
-                    <input type="number" id="radiusInput" min="0" max="20000" value="0" placeholder="Enter radius in km">
+                    <input type="number" id="radiusInput" min="0" max="20000" value="0"
+                        placeholder="Enter radius in km">
                     <span>km</span>
                 </div>
                 <div class="help-text">0km to world coverage - Only the strongest club per region is displayed</div>
@@ -34,22 +37,63 @@
                 <div>Current zoom: <span id="zoomLevel">2</span></div>
             </div>
             <div class="control-group">
-                <h3>Map Controls</h3>
-                <div class="help-text">
-                    • Zoom: Mouse wheel or +/- buttons<br>
-                    • Pan: Click and drag<br>
-                    • Club info: Click on marker
+                <h3>Club Tier Legend</h3>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-marker elite"></div>
+                        <span>Elite (Top 3)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-marker world-class"></div>
+                        <span>World Class (Top 10)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-marker elite-national"></div>
+                        <span>Elite National (Top 25)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-marker top-national"></div>
+                        <span>Top National (Top 50)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-marker strong-national"></div>
+                        <span>Strong National (Top 100)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-marker professional"></div>
+                        <span>Professional (Top 250)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-marker regional"></div>
+                        <span>Regional (Top 500)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-marker lower-league"></div>
+                        <span>Lower League (Top 1000)</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-marker amateur"></div>
+                        <span>Amateur/Semi-Pro (1000+)</span>
+                    </div>
                 </div>
             </div>
-            <!-- Quellenangabe -->
-            <div class="source" style="margin-top:1em; font-size:0.9em; color:#666;">
-                Ranking Source: <a href="https://footballdatabase.com/ranking" target="_blank" rel="noopener">Football Database – Ranking</a><br>
-                <em>Updated after matches played on 25 May 2025</em>
+            <h3>Map Controls</h3>
+            <div class="help-text">
+                • Zoom: Mouse wheel or +/- buttons<br>
+                • Pan: Click and drag<br>
+                • Club info: Click on marker
             </div>
-        </nav>
-        <div class="map-container">
-            <div id="map"></div>
-        </div>
+    </div>
+    <!-- Quellenangabe -->
+    <div class="source" style="margin-top:1em; font-size:0.9em; color:#666;">
+        Ranking Source: <a href="https://footballdatabase.com/ranking" target="_blank" rel="noopener">Football Database
+            – Ranking</a><br>
+        <em>Updated after matches played on 25 May 2025</em>
+    </div>
+    </nav>
+    <div class="map-container">
+        <div id="map"></div>
+    </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="clubs-data.js"></script>
@@ -63,4 +107,5 @@
         });
     </script>
 </body>
+
 </html>

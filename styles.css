@@ -15,7 +15,7 @@ body {
     width: 300px;
     padding: 20px;
     background: white;
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     overflow-y: auto;
     position: fixed;
     top: 0;
@@ -128,7 +128,7 @@ body {
     height: 12px;
     border-radius: 50%;
     border: 2px solid white;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .top-club-marker {
@@ -137,14 +137,99 @@ body {
     height: 16px;
     border-radius: 50%;
     border: 3px solid white;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* Legend Styles */
+.legend {
+    margin-top: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    font-size: 12px;
+}
+
+.legend-marker {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-right: 8px;
+    border: 1px solid #333;
+    flex-shrink: 0;
+}
+
+.legend-marker.elite {
+    background-color: #FFD700;
+    border: 2px solid #FFA500;
+    width: 14px;
+    height: 14px;
+}
+
+.legend-marker.world-class {
+    background-color: #FF8C00;
+    border: 2px solid #FF6347;
+    width: 12px;
+    height: 12px;
+}
+
+.legend-marker.elite-national {
+    background-color: #FF6B35;
+    border: 1px solid #FF4500;
+    width: 10px;
+    height: 10px;
+}
+
+.legend-marker.top-national {
+    background-color: #FF4500;
+    border: 1px solid #DC143C;
+    width: 9px;
+    height: 9px;
+}
+
+.legend-marker.strong-national {
+    background-color: #DC143C;
+    border: 1px solid #B22222;
+    width: 8px;
+    height: 8px;
+}
+
+.legend-marker.professional {
+    background-color: #B22222;
+    border: 1px solid #8B0000;
+    width: 7px;
+    height: 7px;
+}
+
+.legend-marker.regional {
+    background-color: #8B0000;
+    border: 1px solid #696969;
+    width: 6px;
+    height: 6px;
+}
+
+.legend-marker.lower-league {
+    background-color: #696969;
+    border: 1px solid #2F4F4F;
+    width: 5px;
+    height: 5px;
+}
+
+.legend-marker.amateur {
+    background-color: #2F4F4F;
+    border: 1px solid #000000;
+    width: 4px;
+    height: 4px;
 }
 
 /* Navigation Toggle Button */
 .nav-toggle {
     display: none;
     position: fixed;
-    top: 60px;      /* nach unten verschoben, verdeckt nicht mehr die Zoom-Kontrollen */
+    top: 60px;
+    /* nach unten verschoben, verdeckt nicht mehr die Zoom-Kontrollen */
     left: 10px;
     background: #4CAF50;
     color: #fff;
@@ -161,39 +246,57 @@ body {
     .nav-toggle {
         display: block;
     }
+
     .controls {
         left: -100%;
     }
+
     .controls.open {
         left: 0;
     }
+
     .map-container {
         left: 0;
     }
-    .controls.open + .map-container {
+
+    .controls.open+.map-container {
         left: 80%;
         width: 20%;
     }
 }
 
 @media (max-width: 480px) {
-    .controls.open + .map-container {
+    .controls.open+.map-container {
         left: 90%;
         width: 10%;
     }
+
     .controls {
         width: 90%;
         padding: 10px;
     }
+
     .radius-display {
         font-size: 14px;
     }
+
     .help-text {
         font-size: 11px;
     }
+
     .nav-toggle {
         padding: 8px;
         font-size: 16px;
-        top: 100px;  /* etwas höher für kleinere Displays */
+        top: 100px;
+        /* etwas höher für kleinere Displays */
+    }
+
+    .legend-item {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    .legend-marker {
+        margin-right: 6px;
     }
 }
