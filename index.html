@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Football Club World Map</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
-    <link rel="stylesheet" href="styles.css" />
+    <!-- Modular CSS -->
+    <link rel="stylesheet" href="styles/base.css" />
+    <link rel="stylesheet" href="styles/search.css" />
+    <link rel="stylesheet" href="styles/map.css" />
+    <link rel="stylesheet" href="styles/responsive.css" />
 </head>
 
 <body>
@@ -93,29 +97,26 @@
                 • Pan: Click and drag<br>
                 • Club info: Click on marker
             </div>
+            <!-- Quellenangabe -->
+            <div class="source">
+                Ranking Source: <a href="https://footballdatabase.com/ranking" target="_blank" rel="noopener">Football Database
+                    – Ranking</a><br>
+                <em>Updated after matches played on 25 May 2025</em>
+            </div>
+        </nav>
+        <div class="map-container">
+            <div id="map"></div>
+        </div>
     </div>
-    <!-- Quellenangabe -->
-    <div class="source" style="margin-top:1em; font-size:0.9em; color:#666;">
-        Ranking Source: <a href="https://footballdatabase.com/ranking" target="_blank" rel="noopener">Football Database
-            – Ranking</a><br>
-        <em>Updated after matches played on 25 May 2025</em>
-    </div>
-    </nav>
-    <div class="map-container">
-        <div id="map"></div>
-    </div>
-    </div>
+    
+    <!-- External Dependencies -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    <script src="clubs-data.js"></script>
-    <script src="football-map.js"></script>
-    <script>
-        // Toggle navigation on mobile
-        const navToggle = document.querySelector('.nav-toggle');
-        const controls = document.querySelector('.controls');
-        navToggle.addEventListener('click', () => {
-            controls.classList.toggle('open');
-        });
-    </script>
+    
+    <!-- Data -->
+    <script src="data/clubs-data.js"></script>
+    
+    <!-- Main Application (ES6 Modules) -->
+    <script type="module" src="app.js"></script>
 </body>
 
 </html>

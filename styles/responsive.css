@@ -1,0 +1,78 @@
+/* styles/responsive.css - Responsive Styles */
+
+/* Navigation Toggle Button */
+.nav-toggle {
+    display: none;
+    position: fixed;
+    top: 60px;
+    /* nach unten verschoben, verdeckt nicht mehr die Zoom-Kontrollen */
+    left: 10px;
+    background: #4CAF50;
+    color: #fff;
+    border: none;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    z-index: 1100;
+    cursor: pointer;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .nav-toggle {
+        display: block;
+    }
+
+    .controls {
+        left: -100%;
+    }
+
+    .controls.open {
+        left: 0;
+    }
+
+    .map-container {
+        left: 0;
+    }
+
+    .controls.open+.map-container {
+        left: 80%;
+        width: 20%;
+    }
+}
+
+@media (max-width: 480px) {
+    .controls.open+.map-container {
+        left: 90%;
+        width: 10%;
+    }
+
+    .controls {
+        width: 90%;
+        padding: 10px;
+    }
+
+    .radius-display {
+        font-size: 14px;
+    }
+
+    .help-text {
+        font-size: 11px;
+    }
+
+    .nav-toggle {
+        padding: 8px;
+        font-size: 16px;
+        top: 100px;
+        /* etwas höher für kleinere Displays */
+    }
+
+    .legend-item {
+        font-size: 11px;
+        margin-bottom: 4px;
+    }
+
+    .legend-marker {
+        margin-right: 6px;
+    }
+}
