@@ -23,6 +23,9 @@ class FootballClubMap {
             maxZoom: 18
         }).addTo(this.map);
 
+        // Search functionality
+        this.initSearch();
+
         // Event Listeners for Radius Slider and Input
         document.getElementById('radius').addEventListener('input', (e) => {
             this.updateRadius(parseInt(e.target.value));
@@ -52,6 +55,157 @@ class FootballClubMap {
         this.map.on('click', () => {
             this.clearSelectedClubCircle();
         });
+    }
+
+    initSearch() {
+        const searchInput = document.getElementById('clubSearch');
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+        let currentSelection = -1;
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.trim();
+            if (query.length < 2) {
+                this.hideSuggestions();
+                return;
+            }
+            this.showSuggestions(query);
+        });
+
+        searchInput.addEventListener('keydown', (e) => {
+            const suggestions = suggestionsContainer.querySelectorAll('.search-suggestion');
+            
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                currentSelection = Math.min(currentSelection + 1, suggestions.length - 1);
+                this.highlightSuggestion(suggestions, currentSelection);
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                currentSelection = Math.max(currentSelection - 1, -1);
+                this.highlightSuggestion(suggestions, currentSelection);
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                if (currentSelection >= 0 && suggestions[currentSelection]) {
+                    const clubId = suggestions[currentSelection].dataset.clubId;
+                    this.selectClub(parseInt(clubId));
+                }
+            } else if (e.key === 'Escape') {
+                this.hideSuggestions();
+                searchInput.blur();
+            }
+        });
+
+        // Hide suggestions when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!searchInput.contains(e.target) && !suggestionsContainer.contains(e.target)) {
+                this.hideSuggestions();
+            }
+        });
+    }
+
+    showSuggestions(query) {
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+        const matches = this.searchClubs(query);
+        
+        if (matches.length === 0) {
+            this.hideSuggestions();
+            return;
+        }
+
+        suggestionsContainer.innerHTML = '';
+        matches.forEach((club, index) => {
+            const suggestion = document.createElement('div');
+            suggestion.className = 'search-suggestion';
+            suggestion.dataset.clubId = club.rank; // Using rank as unique identifier
+            
+            suggestion.innerHTML = `
+                <div class="suggestion-name">${club.name}</div>
+                <div class="suggestion-details">
+                    <span class="suggestion-rank">#${club.rank}</span> • ${club.country}
+                </div>
+            `;
+
+            suggestion.addEventListener('click', () => {
+                this.selectClub(club.rank);
+            });
+
+            suggestionsContainer.appendChild(suggestion);
+        });
+
+        suggestionsContainer.style.display = 'block';
+    }
+
+    hideSuggestions() {
+        const suggestionsContainer = document.getElementById('searchSuggestions');
+        suggestionsContainer.style.display = 'none';
+    }
+
+    highlightSuggestion(suggestions, index) {
+        suggestions.forEach((suggestion, i) => {
+            suggestion.classList.toggle('highlighted', i === index);
+        });
+    }
+
+    searchClubs(query) {
+        const queryLower = query.toLowerCase();
+        const matches = this.clubs.filter(club => 
+            club.name.toLowerCase().includes(queryLower) ||
+            club.country.toLowerCase().includes(queryLower)
+        );
+
+        // Sort by relevance: exact matches first, then by rank
+        return matches
+            .sort((a, b) => {
+                const aNameLower = a.name.toLowerCase();
+                const bNameLower = b.name.toLowerCase();
+                
+                // Exact name matches first
+                if (aNameLower === queryLower && bNameLower !== queryLower) return -1;
+                if (bNameLower === queryLower && aNameLower !== queryLower) return 1;
+                
+                // Name starts with query
+                if (aNameLower.startsWith(queryLower) && !bNameLower.startsWith(queryLower)) return -1;
+                if (bNameLower.startsWith(queryLower) && !aNameLower.startsWith(queryLower)) return 1;
+                
+                // Finally sort by rank (better rank = lower number)
+                return a.rank - b.rank;
+            })
+            .slice(0, 8); // Limit to 8 suggestions
+    }
+
+    selectClub(clubRank) {
+        const club = this.clubs.find(c => c.rank === clubRank);
+        if (!club) return;
+
+        // Hide suggestions and clear search
+        this.hideSuggestions();
+        document.getElementById('clubSearch').value = club.name;
+
+        // Navigate to club
+        this.navigateToClub(club);
+    }
+
+    navigateToClub(club) {
+        // Zoom to club location
+        this.map.setView([club.lat, club.lng], Math.max(this.map.getZoom(), 8));
+        
+        // Show selected club circle
+        this.showSelectedClubCircle(club);
+        
+        // Ensure the club is visible by filtering
+        this.filterAndDisplayClubs();
+        
+        // Find the marker for this club and open its popup
+        setTimeout(() => {
+            const marker = this.markers.find(m => {
+                const markerLatLng = m.getLatLng();
+                return Math.abs(markerLatLng.lat - club.lat) < 0.001 && 
+                       Math.abs(markerLatLng.lng - club.lng) < 0.001;
+            });
+            
+            if (marker) {
+                marker.openPopup();
+            }
+        }, 500);
     }
 
     loadDemoData() {
