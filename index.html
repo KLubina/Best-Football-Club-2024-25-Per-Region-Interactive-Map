@@ -1,121 +1,127 @@
+<!--
+    index.html - Best Football Club Per Region Map
+    
+    Interactive map to explore top football clubs by region.
+    Features: search, filter by dominance radius, club tier legend, stats, responsive design.
+    Uses Leaflet.js, modular CSS, and ES6 modules.
+-->
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 
 <head>
+    <!-- Meta information for browser and search engines -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Football Club World Map</title>
+    
+    <!-- External CSS library for Leaflet map -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
-    <!-- Modular CSS -->
-    <link rel="stylesheet" href="styles/base.css" />
-    <link rel="stylesheet" href="styles/search.css" />
-    <link rel="stylesheet" href="styles/map.css" />
-    <link rel="stylesheet" href="styles/responsive.css" />
+    
+    <!-- Modular CSS files for better code organization -->
+    <link rel="stylesheet" href="styles/base.css" />       <!-- Base styling -->
+    <link rel="stylesheet" href="styles/search.css" />     <!-- Search functionality -->
+    <link rel="stylesheet" href="styles/map.css" />        <!-- Map-specific styling -->
+    <link rel="stylesheet" href="styles/responsive.css" /> <!-- Mobile/Responsive design -->
 </head>
 
 <body>
-    <!-- Navigation Toggle Button for Mobile -->
+    <!-- Mobile navigation toggle - for smaller screens -->
     <button class="nav-toggle" aria-label="Toggle navigation">☰</button>
+    
+    <!-- Main container for layout -->
     <div class="container">
+        
+        <!-- Sidebar with all control elements -->
         <nav class="controls">
             <h2>Football Club Filter</h2>
 
-            <!-- Search Section -->
+            <!-- Search area for club names -->
             <div class="control-group">
                 <label for="clubSearch">Search Club:</label>
                 <div class="search-container">
+                    <!-- Search field with autocomplete functionality -->
                     <input type="text" id="clubSearch" placeholder="Type club name..." autocomplete="off">
+                    <!-- Container for search suggestions (populated dynamically) -->
                     <div class="search-suggestions" id="searchSuggestions"></div>
                 </div>
             </div>
 
+            <!-- Dominance radius controls -->
             <div class="control-group">
                 <label for="radius">Dominance Radius:</label>
+                
+                <!-- Display of current radius value -->
                 <div class="radius-display" id="radiusDisplay">0 km</div>
+                
+                <!-- Slider for radius setting (0-20000 km) -->
                 <input type="range" id="radius" class="radius-slider" min="0" max="20000" value="0" step="1">
+                
+                <!-- Numeric input for precise radius specification -->
                 <div class="radius-input-container">
                     <input type="number" id="radiusInput" min="0" max="20000" value="0"
                         placeholder="Enter radius in km">
                     <span>km</span>
                 </div>
+                
+                <!-- Help text explaining the functionality -->
                 <div class="help-text">0km to world coverage - Only the strongest club per region is displayed</div>
+                
+                <!-- Checkbox to show/hide dominance circles -->
                 <label style="margin-top: 15px;">
                     <input type="checkbox" id="showCircles" checked>
                     Show dominance areas
                 </label>
             </div>
+            
+            <!-- Statistics area (updated dynamically) -->
             <div class="stats" id="stats">
                 <h3>Statistics</h3>
-                <div>Total clubs: <span id="totalClubs">0</span></div>
-                <div>Visible clubs: <span id="visibleClubs">0</span></div>
-                <div>Current zoom: <span id="zoomLevel">2</span></div>
+                <div>Total clubs: <span id="totalClubs">0</span></div>        <!-- Total number of clubs -->
+                <div>Visible clubs: <span id="visibleClubs">0</span></div>     <!-- Visible clubs -->
+                <div>Current zoom: <span id="zoomLevel">2</span></div>         <!-- Current zoom level -->
             </div>
-            <div class="control-group">
-                <h3>Club Tier Legend</h3>
-                <div class="legend">
-                    <div class="legend-item">
-                        <div class="legend-marker elite"></div>
-                        <span>Elite (Top 3)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-marker world-class"></div>
-                        <span>World Class (Top 10)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-marker elite-national"></div>
-                        <span>Elite National (Top 25)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-marker top-national"></div>
-                        <span>Top National (Top 50)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-marker strong-national"></div>
-                        <span>Strong National (Top 100)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-marker professional"></div>
-                        <span>Professional (Top 250)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-marker regional"></div>
-                        <span>Regional (Top 500)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-marker lower-league"></div>
-                        <span>Lower League (Top 1000)</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-marker amateur"></div>
-                        <span>Amateur/Semi-Pro (1000+)</span>
-                    </div>
-                </div>
+            
+            <!-- Legend placeholder - loaded dynamically from external file -->
+            <div id="legend-container">
+                <!-- Legend content will be loaded from components/legend.html -->
+                <div class="loading-placeholder">Loading legend...</div>
             </div>
+            
+            <!-- Instructions for map controls -->
             <h3>Map Controls</h3>
             <div class="help-text">
-                • Zoom: Mouse wheel or +/- buttons<br>
-                • Pan: Click and drag<br>
-                • Club info: Click on marker
+                <ul>
+                    <li>Zoom: Mouse wheel or +/- buttons</li>    <!-- Zoom functions -->
+                    <li>Pan: Click and drag</li>                <!-- Move map -->
+                    <li>Club info: Click on marker</li>         <!-- Display club information -->
+                </ul>
             </div>
-            <!-- Quellenangabe -->
+            
+            <!-- Data source attribution -->
             <div class="source">
                 Ranking Source: <a href="https://footballdatabase.com/ranking" target="_blank" rel="noopener">Football Database
                     – Ranking</a><br>
                 <em>Updated after matches played on 25 May 2025</em>
             </div>
         </nav>
+        
+        <!-- Main area for the map -->
         <div class="map-container">
+            <!-- Leaflet map will be embedded here -->
             <div id="map"></div>
         </div>
     </div>
     
-    <!-- External Dependencies -->
+    <!-- External JavaScript libraries -->
+    <!-- Leaflet.js for interactive map functionality -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     
-    <!-- Data -->
+    <!-- Club data (presumably as JavaScript object or array) -->
     <script src="data/clubs-data.js"></script>
     
-    <!-- Main Application (ES6 Modules) -->
+    <!-- Main application logic -->
+    <!-- ES6 modules allow for better code organization and reuse by enabling import/export functionality. 
+         This script uses ES6 modules to structure the application logic. -->
     <script type="module" src="app.js"></script>
 </body>
 
