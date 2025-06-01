@@ -119,6 +119,42 @@
     <!-- Club data (presumably as JavaScript object or array) -->
     <script src="data/clubs-data.js"></script>
     
+    <!-- Load external legend component -->
+    <script>
+        /**
+         * Load external HTML component into the page
+         * This allows for better code modularity and maintenance
+         */
+        async function loadLegendComponent() {
+            try {
+                // Fetch the external legend HTML file
+                const response = await fetch('components/legend.html');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                // Get the HTML content
+                const legendHTML = await response.text();
+                
+                // Insert the legend into the placeholder container
+                const legendContainer = document.getElementById('legend-container');
+                if (legendContainer) {
+                    legendContainer.innerHTML = legendHTML;
+                }
+            } catch (error) {
+                console.error('Error loading legend component:', error);
+                // Fallback: show error message in the container
+                const legendContainer = document.getElementById('legend-container');
+                if (legendContainer) {
+                    legendContainer.innerHTML = '<div class="error-message">Legend could not be loaded</div>';
+                }
+            }
+        }
+        
+        // Load the legend component when the DOM is ready
+        document.addEventListener('DOMContentLoaded', loadLegendComponent);
+    </script>
+    
     <!-- Main application logic -->
     <!-- ES6 modules allow for better code organization and reuse by enabling import/export functionality. 
          This script uses ES6 modules to structure the application logic. -->
