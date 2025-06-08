@@ -13901,7 +13901,7 @@ const CLUBS_DATA = [
   "lat": 46.3842,
   "lng": 16.4336,
   "country": "Croatia"
-}
+},
   {
     "rank": 1987,
     "name": "Persiba Balikpapan",
