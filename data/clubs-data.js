@@ -5684,13 +5684,13 @@ const CLUBS_DATA = [
     "lng": -5.9301,
     "country": "Northern Ireland"
   },
-  {
-    "rank": 813,
-    "name": "NK Istra 1961",
-    "lat": 45.2167,
-    "lng": 13.9333,
-    "country": "Croatia"
-  },
+{
+  "rank": 813,
+  "name": "NK Istra 1961",
+  "lat": 44.8666,
+  "lng": 13.8496,
+  "country": "Croatia"
+},
   {
     "rank": 814,
     "name": "Chievo Verona",
@@ -6594,13 +6594,13 @@ const CLUBS_DATA = [
     "lng": 25.1442,
     "country": "Greece"
   },
-  {
-    "rank": 943,
-    "name": "Slaven",
-    "lat": 45.36108643211838,
-    "lng": 14.4078,
-    "country": "Croatia"
-  },
+{
+  "rank": 943,
+  "name": "Slaven",
+  "lat": 46.1622,
+  "lng": 16.8286,
+  "country": "Croatia"
+},
   {
     "rank": 944,
     "name": "Bali United",
@@ -8610,13 +8610,13 @@ const CLUBS_DATA = [
     "lng": 23.6947,
     "country": "Greece"
   },
-  {
-    "rank": 1231,
-    "name": "HNK Gorica",
-    "lat": 46.32043747640558,
-    "lng": 16.32491071458934,
-    "country": "Croatia"
-  },
+{
+  "rank": 1231,
+  "name": "HNK Gorica",
+  "lat": 45.7125,
+  "lng": 16.0758,
+  "country": "Croatia"
+},
   {
     "rank": 1232,
     "name": "Ittihad El-Shorta",
@@ -13895,13 +13895,13 @@ const CLUBS_DATA = [
     "lng": 16.25,
     "country": "Austria"
   },
-  {
-    "rank": 1986,
-    "name": "Medimurje",
-    "lat": 46.32462320368997,
-    "lng": 16.350240369561757,
-    "country": "Croatia"
-  },
+{
+  "rank": 1986,
+  "name": "Medimurje",
+  "lat": 46.3842,
+  "lng": 16.4336,
+  "country": "Croatia"
+}
   {
     "rank": 1987,
     "name": "Persiba Balikpapan",
@@ -17059,13 +17059,13 @@ const CLUBS_DATA = [
     "lng": 59.6168,
     "country": "Iran"
   },
-  {
-    "rank": 2438,
-    "name": "Cibalia",
-    "lat": 45.4953,
-    "lng": 18.6881,
-    "country": "Croatia"
-  },
+{
+  "rank": 2438,
+  "name": "Cibalia",
+  "lat": 45.2883,
+  "lng": 18.8047,
+  "country": "Croatia"
+},
   {
     "rank": 2439,
     "name": "Bofoakwa Tano",
