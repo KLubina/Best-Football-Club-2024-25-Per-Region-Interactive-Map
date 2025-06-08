@@ -913,7 +913,7 @@ const CLUBS_DATA = [
     {
         "rank": 131,
         "name": "FC Sheriff",
-        "lat": 47.0407,
+        "lat": 47.0607,
         "lng": 28.8659,
         "country": "Moldova"
     },
@@ -2685,7 +2685,7 @@ const CLUBS_DATA = [
         "rank": 384,
         "name": "FC Infonet Tallinn",
         "lat": 59.49285929635513,
-        "lng": 24.7545,
+        "lng": 24.7345,
         "country": "Estonia"
     },
     {
@@ -14409,7 +14409,7 @@ const CLUBS_DATA = [
     {
         "rank": 2059,
         "name": "Forest Rangers",
-        "lat": -15.387500000000003,
+        "lat": -15.407500000000003,
         "lng": 28.3228,
         "country": "Zambia"
     },
@@ -14731,7 +14731,7 @@ const CLUBS_DATA = [
     {
         "rank": 2105,
         "name": "Ocean Pacifique",
-        "lat": 55.686773064749474,
+        "lat": 55.706773064749474,
         "lng": 12.567127640646362,
         "country": "Denmark"
     },
@@ -15648,7 +15648,7 @@ const CLUBS_DATA = [
     {
         "rank": 2236,
         "name": "Progresso Associação do Sambizanga",
-        "lat": -8.820313567881625,
+        "lat": -8.840313567881625,
         "lng": 13.2344,
         "country": "Angola"
     },
@@ -15676,7 +15676,7 @@ const CLUBS_DATA = [
     {
         "rank": 2240,
         "name": "Young Green Eagles",
-        "lat": -15.36951356788163,
+        "lat": -15.38951356788163,
         "lng": 28.3228,
         "country": "Zambia"
     },
@@ -15921,7 +15921,7 @@ const CLUBS_DATA = [
     {
         "rank": 2275,
         "name": "Mutondo Stars",
-        "lat": -15.351527135763256,
+        "lat": -15.371527135763256,
         "lng": 28.3228,
         "country": "Zambia"
     },
@@ -16495,7 +16495,7 @@ const CLUBS_DATA = [
     {
         "rank": 2357,
         "name": "Santos de Angola",
-        "lat": -8.802327135763251,
+        "lat": -8.822327135763251,
         "lng": 13.2344,
         "country": "Angola"
     },
@@ -16551,7 +16551,7 @@ const CLUBS_DATA = [
     {
         "rank": 2365,
         "name": "Concordia Chiajna",
-        "lat": 44.462772864236754,
+        "lat": 44.442772864236754,
         "lng": 26.1025,
         "country": "Romania"
     },
@@ -16915,7 +16915,7 @@ const CLUBS_DATA = [
     {
         "rank": 2417,
         "name": "Luanda City FC",
-        "lat": -8.784340703644878,
+        "lat": -8.804340703644878,
         "lng": 13.2344,
         "country": "Angola"
     },
@@ -17216,7 +17216,7 @@ const CLUBS_DATA = [
     {
         "rank": 2460,
         "name": "Bulawayo City FC",
-        "lat": -20.1531287317982,
+        "lat": -20.1731287317982,
         "lng": 28.58276786672831,
         "country": "Zimbabwe"
     },
@@ -17735,7 +17735,7 @@ const CLUBS_DATA = [
         "rank": 2534,
         "name": "Harju Jalgpallikool",
         "lat": 59.45738625010079,
-        "lng": 24.74622079138525,
+        "lng": 24.72622079138525,
         "country": "Estonia"
     },
     {
@@ -17783,7 +17783,7 @@ const CLUBS_DATA = [
     {
         "rank": 2541,
         "name": "Bantu Rovers",
-        "lat": -20.13514229967983,
+        "lat": -20.15514229967983,
         "lng": 28.58276786672831,
         "country": "Zimbabwe"
     },
@@ -17944,7 +17944,7 @@ const CLUBS_DATA = [
     {
         "rank": 2564,
         "name": "Manu Ura",
-        "lat": -17.537298400883497,
+        "lat": -17.557298400883497,
         "lng": -149.55804845875798,
         "country": "Tahiti"
     },
@@ -18028,14 +18028,14 @@ const CLUBS_DATA = [
     {
         "rank": 2576,
         "name": "OFK Mladost Donja Gorica",
-        "lat": 42.459086432118376,
+        "lat": 42.509086432118376,
         "lng": 19.2636,
         "country": "Montenegro"
     },
     {
         "rank": 2577,
         "name": "Trident FC",
-        "lat": -15.333540703644882,
+        "lat": -15.353540703644882,
         "lng": 28.3228,
         "country": "Zambia"
     },
@@ -18092,7 +18092,7 @@ const CLUBS_DATA = [
         "rank": 2585,
         "name": "FK Podgorica",
         "lat": 42.47707286423675,
-        "lng": 19.2636,
+        "lng": 19.2236,
         "country": "Montenegro"
     },
     {
@@ -18225,7 +18225,7 @@ const CLUBS_DATA = [
         "rank": 2603,
         "name": "FC Academia Chisinau",
         "lat": 47.08244572847351,
-        "lng": 28.863799999999998,
+        "lng": 28.853799999999998,
         "country": "Moldova"
     },
     {
@@ -18372,7 +18372,7 @@ const CLUBS_DATA = [
         "rank": 2624,
         "name": "Douglas Warriors",
         "lat": -17.587164500738673,
-        "lng": 31.05186787770171,
+        "lng": 31.02186787770171,
         "country": "Zimbabwe"
     },
     {
@@ -18518,7 +18518,7 @@ const CLUBS_DATA = [
     {
         "rank": 2645,
         "name": "Domant FC",
-        "lat": -8.766354271526504,
+        "lat": -8.786354271526504,
         "lng": 13.2344,
         "country": "Angola"
     },
@@ -18553,7 +18553,7 @@ const CLUBS_DATA = [
     {
         "rank": 2650,
         "name": "Lime Hotspurs",
-        "lat": -15.31555427152651,
+        "lat": -15.32555427152651,
         "lng": 28.3228,
         "country": "Zambia"
     },
@@ -18581,7 +18581,7 @@ const CLUBS_DATA = [
     {
         "rank": 2654,
         "name": "Porcelana FC",
-        "lat": -8.748367839408129,
+        "lat": -8.768367839408129,
         "lng": 13.2344,
         "country": "Angola"
     },
@@ -18980,14 +18980,14 @@ const CLUBS_DATA = [
     {
         "rank": 2711,
         "name": "UNAN Managua",
-        "lat": 12.13702865646226,
+        "lat": 12.11702865646226,
         "lng": -86.24657865363895,
         "country": "Nicaragua"
     },
     {
         "rank": 2712,
         "name": "1º de Maio",
-        "lat": -8.730381407289753,
+        "lat": -8.750381407289753,
         "lng": 13.2344,
         "country": "Angola"
     },
@@ -19218,7 +19218,7 @@ const CLUBS_DATA = [
     {
         "rank": 2745,
         "name": "CD Junior Managua",
-        "lat": 12.155015088580637,
+        "lat": 12.135015088580637,
         "lng": -86.24657865363895,
         "country": "Nicaragua"
     },
@@ -19274,7 +19274,7 @@ const CLUBS_DATA = [
     {
         "rank": 2753,
         "name": "Santa Rita de Cássia FC",
-        "lat": -8.71239497517138,
+        "lat": -8.73239497517138,
         "lng": 13.2344,
         "country": "Angola"
     },
@@ -19303,7 +19303,7 @@ const CLUBS_DATA = [
         "rank": 2757,
         "name": "Lootus",
         "lat": 59.47537268221915,
-        "lng": 24.74622079138525,
+        "lng": 24.72622079138525,
         "country": "Estonia"
     },
     {
@@ -19331,7 +19331,7 @@ const CLUBS_DATA = [
         "rank": 2761,
         "name": "CSF Spartanii Selemet",
         "lat": 47.100432160591886,
-        "lng": 28.863799999999998,
+        "lng": 28.843799999999998,
         "country": "Moldova"
     },
     {
@@ -19484,7 +19484,7 @@ const CLUBS_DATA = [
     {
         "rank": 2783,
         "name": "Juventus Bucureşti",
-        "lat": 44.48075929635513,
+        "lat": 44.46075929635513,
         "lng": 26.1025,
         "country": "Romania"
     },
@@ -20520,7 +20520,7 @@ const CLUBS_DATA = [
     {
         "rank": 2931,
         "name": "Buildcon",
-        "lat": -15.297567839408137,
+        "lat": -15.317567839408137,
         "lng": 28.3228,
         "country": "Zambia"
     },
