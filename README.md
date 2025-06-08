@@ -3,11 +3,11 @@
 An interactive world map that visualizes the best football clubs per region and displays their dominance areas.
 
 ## Dominance Areas View
-![Dominance areas with radius circles](0-README-components\football-map-radius-preview.png)
+![Dominance areas with radius circles](0-README-components/football-map-radius-preview.png)
 *Shows club dominance areas with configurable radius (here: 169km)*
 
 ## Global Overview
-![All clubs worldwide](0-README-components\football-map-general-preview.png)
+![All clubs worldwide](0-README-components/football-map-general-preview.png)
 *Complete world map with 2999 clubs without dominance circles*
 
 ## 🚀 Live Demo
