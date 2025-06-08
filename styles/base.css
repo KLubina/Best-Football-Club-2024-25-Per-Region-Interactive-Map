@@ -22,8 +22,32 @@ body {
     top: 0;
     left: 0;
     height: 100vh;
+    box-sizing: border-box; /* FIX: Includes padding in height calculation */
     transition: left 0.3s ease;
     z-index: 1000;
+    /* Additional scrolling improvements */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: #4CAF50 #f0f0f0; /* Firefox */
+}
+
+/* Custom scrollbar for webkit browsers */
+.controls::-webkit-scrollbar {
+    width: 8px;
+}
+
+.controls::-webkit-scrollbar-track {
+    background: #f0f0f0;
+    border-radius: 4px;
+}
+
+.controls::-webkit-scrollbar-thumb {
+    background: #4CAF50;
+    border-radius: 4px;
+}
+
+.controls::-webkit-scrollbar-thumb:hover {
+    background: #45a049;
 }
 
 .control-group {
@@ -74,6 +98,8 @@ body {
 
 .source {
     margin-top: 1em;
+    margin-bottom: 1em; /* FIX: Add margin bottom for better spacing */
     font-size: 0.9em;
     color: #666;
+    padding-bottom: 20px; /* FIX: Extra padding at bottom for easier scrolling */
 }
